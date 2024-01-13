@@ -10,15 +10,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.*;
 import util.TestDataGenerator;
 
-import java.util.Arrays;
-import java.util.Collection;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 
-@RunWith(Parameterized.class)
-//Не придумала, как прогнать без параметризации тут, из-за этого есть "поломанный" тест
 public class BaseTest {
-    protected final String driverPath;
     protected WebDriver webDriver;
     protected RegisterPage registerPage;
     protected LoginPage loginPage;
@@ -30,24 +24,23 @@ public class BaseTest {
     protected UserClient userClient;
     protected int lengthPassword;
 
-    public BaseTest(String driverPath) {
-        this.driverPath = driverPath;
-    }
-
-    @Parameterized.Parameters
-    public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-                {ConfProperties.getProperty("chromedriver")},
-                {ConfProperties.getProperty("yandexdriver")},
-        });
-    }
 
     @Before
     public void setUp() {
         testDataGenerator = new TestDataGenerator();
         user = TestDataGenerator.generateRandomUser(lengthPassword);
         userClient = new UserClient(user);
-        System.setProperty("webdriver.chrome.driver", driverPath);
+
+        // Получение пути к драйверу из системного свойства Maven
+        String driverName = "browser.driver.path";
+        String driverPath = System.getProperty(driverName);
+
+        if (driverPath != null) {
+            System.setProperty("webdriver.chrome.driver", driverPath);
+        } else {
+            System.out.println("Путь к драйверу не указан. Используется драйвер по умолчанию.");
+        }
+
         webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(3, java.util.concurrent.TimeUnit.SECONDS);
         loginPage = new LoginPage(webDriver);

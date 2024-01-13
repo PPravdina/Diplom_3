@@ -1,34 +1,34 @@
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfProperties {
-    protected static FileInputStream fileInputStream;
-    protected static Properties PROPERTIES;
+    private static final Properties PROPERTIES = new Properties();
 
     static {
-        try {
-            //указание пути до файла с настройками
-            fileInputStream = new FileInputStream("src\\test\\resources\\conf.properties");
-            PROPERTIES = new Properties();
-            PROPERTIES.load(fileInputStream);
+        try (InputStream input = ConfProperties.class.getClassLoader().getResourceAsStream("conf.properties")) {
+            if (input == null) {
+                System.out.println("Извините, не удается найти файл conf.properties");
+            } else {
+                PROPERTIES.load(input);
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            //обработка возможного исключения (нет файла и т.п.)
-        } finally {
-            if (fileInputStream != null)
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            throw new RuntimeException("Ошибка при загрузке файла conf.properties", e);
         }
     }
 
     /**
-     * метод для возврата строки со значением из файла с настройками
+     * Метод для возврата строки со значением из файла с настройками
      */
     public static String getProperty(String key) {
         return PROPERTIES.getProperty(key);
+    }
+
+    /**
+     * Дополнительный метод для возврата значения пути к драйверу по его имени
+     */
+    public static String getDriverPath(String driverName) {
+        return getProperty(driverName);
     }
 }

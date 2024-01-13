@@ -14,11 +14,9 @@ public class UserClient extends BaseClient {
 
     @Step("Зарегистрировать пользователя")
     public Response registerUser() {
-        String requestBody = "{ \"email\": \"" + user.getEmail() + "\", \"password\": \"" + user.getPassword() + "\", \"name\": \"" + user.getName() + "\" }";
-
         return getRequestSpecification()
                 .and()
-                .body(requestBody)
+                .body(user)
                 .when()
                 .post(USER_PATH + "register");
     }

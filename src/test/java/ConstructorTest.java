@@ -8,9 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ConstructorTest extends BaseTest {
-    public ConstructorTest(String driverPath) {
-        super(driverPath);
-    }
 
     @Override
     @Before

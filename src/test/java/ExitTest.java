@@ -5,9 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ExitTest extends BaseTest {
-    public ExitTest(String driverPath) {
-        super(driverPath);
-    }
 
     @Override
     @Before

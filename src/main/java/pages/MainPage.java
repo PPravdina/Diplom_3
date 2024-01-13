@@ -31,7 +31,9 @@ public class MainPage {
 
     @Step("Нажать Личный кабинет")
     public void pressPersonalAccountLink() {
-        webDriver.findElement(personalAccountLink).click();
+        WebDriverWait wait = new WebDriverWait(webDriver, 10);
+        WebElement personalAccountElement = wait.until(ExpectedConditions.elementToBeClickable(personalAccountLink));
+        personalAccountElement.click();
     }
 
     @Step("Нажать Войти в аккаунт")

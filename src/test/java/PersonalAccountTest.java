@@ -5,9 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PersonalAccountTest extends BaseTest {
-    public PersonalAccountTest(String driverPath) {
-        super(driverPath);
-    }
 
     @Override
     @Before

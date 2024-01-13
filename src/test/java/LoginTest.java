@@ -6,10 +6,6 @@ import org.junit.Test;
 
 public class LoginTest extends BaseTest {
 
-    public LoginTest(String driverPath) {
-        super(driverPath);
-    }
-
     @Override
     @Before
     public void setUp() {

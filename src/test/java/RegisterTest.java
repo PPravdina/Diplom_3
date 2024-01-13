@@ -14,8 +14,7 @@ import java.util.Collection;
 public class RegisterTest extends BaseTest {
     private final String message;
 
-    public RegisterTest(int lengthPassword, String message, String driverPath) {
-        super(driverPath);
+    public RegisterTest(int lengthPassword, String message) {
         this.lengthPassword = lengthPassword;
         this.message = message;
     }
@@ -23,10 +22,8 @@ public class RegisterTest extends BaseTest {
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
-                {6, "Регистрация не прошла, но должна была", ConfProperties.getProperty("chromedriver")},
-                {6, "Регистрация не прошла, но должна была", ConfProperties.getProperty("yandexdriver")},
-                {5, "Регистрация прошла, но не должна была", ConfProperties.getProperty("chromedriver")},
-                {5, "Регистрация прошла, но не должна была", ConfProperties.getProperty("yandexdriver")},
+                {6, "Регистрация не прошла, но должна была"},
+                {5, "Регистрация прошла, но не должна была"},
         });
     }
 
